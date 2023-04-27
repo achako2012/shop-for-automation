@@ -3,6 +3,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "pages/LoginPage";
 import { ProductPage } from "pages/product-page/ProductsPage";
+import { ShoppingCart } from "pages/shopping-cart-page/ShoppingCart";
 
 const App: React.FC = () => {
   const store = useSelector((store) => store);
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/cart" element={<ShoppingCart />} />
         </Routes>
       </BrowserRouter>
     </>
