@@ -4,27 +4,76 @@ import {
   Button,
   Flex,
   FormControl,
-  FormHelperText,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Link,
   Stack,
   chakra,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
 import React, { useState } from "react";
+import { user } from "_data";
+import { useNavigate } from "react-router-dom";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
+interface UserI {
+  username: string;
+  password: string;
+}
+
 export const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [credentials, setCredentiasl] = useState<UserI>({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState<boolean>(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentiasl({
+      ...credentials,
+      username: event.target.value,
+    });
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentiasl({
+      ...credentials,
+      password: event.target.value,
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formElements = event.currentTarget
+      .elements as typeof event.currentTarget.elements & {
+      usernameInput: HTMLInputElement;
+      passwordInput: HTMLInputElement;
+    };
+
+    if (
+      formElements.usernameInput.value === user.username &&
+      formElements.passwordInput.value === user.password
+    ) {
+      navigate("/products");
+    } else {
+      setError(true);
+      setCredentiasl({
+        username: "",
+        password: "",
+      });
+    }
+  };
 
   return (
     <Flex
@@ -44,7 +93,7 @@ export const LoginPage: React.FC = () => {
         <Avatar bg="teal.500" />
         <Heading color="teal.400">Welcome</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Stack
               spacing={4}
               p="1rem"
@@ -57,7 +106,14 @@ export const LoginPage: React.FC = () => {
                     pointerEvents="none"
                     children={<CFaUserAlt color="gray.300" />}
                   />
-                  <Input type="email" placeholder="email address" />
+                  <Input
+                    isInvalid={error}
+                    id="usernameInput"
+                    value={credentials.username}
+                    type="text"
+                    placeholder="username"
+                    onChange={handleUsernameChange}
+                  />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -68,8 +124,12 @@ export const LoginPage: React.FC = () => {
                     children={<CFaLock color="gray.300" />}
                   />
                   <Input
+                    isInvalid={error}
+                    id="passwordInput"
+                    value={credentials.password}
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    onChange={handlePasswordChange}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -77,9 +137,6 @@ export const LoginPage: React.FC = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Link>forgot password?</Link>
-                </FormHelperText>
               </FormControl>
               <Button
                 borderRadius={0}
