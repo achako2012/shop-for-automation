@@ -1,7 +1,4 @@
-import {
-  Button,
-  Flex,
-} from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { PriceTag } from "./PriceTag";
 import { CartProductMeta } from "./CartProductMeta";
 import { useDispatch } from "react-redux";
@@ -37,11 +34,13 @@ export const CartItem = (props: CartItemProps) => {
         justify="space-between"
         display={{ base: "none", md: "flex" }}
       >
-        <PriceTag price={price}/>
+        <PriceTag price={price} />
         <Button
           aria-label={`Delete ${name} from cart`}
           onClick={handleProductDelete}
-        />
+        >
+          Delete
+        </Button>
       </Flex>
 
       {/* Mobile */}

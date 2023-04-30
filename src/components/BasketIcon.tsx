@@ -29,7 +29,7 @@ export default function BasketIcon(props: BasketIconPropsI) {
           borderColor={useColorModeValue("gray.800", "gray.500")}
           rounded={"lg"}
         >
-          <Flex justifyContent={"space-between"}>
+          <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Box pl={{ base: 2, md: 4 }}>
               <StatLabel fontWeight={"medium"} isTruncated>
                 In your basket:
@@ -38,7 +38,7 @@ export default function BasketIcon(props: BasketIconPropsI) {
                 {count}
               </StatNumber>
             </Box>
-            <Button onClick={()=>{navigate("/cart")}}/>
+            <Button onClick={()=>{navigate("/cart")}}>Go to basket</Button>
           </Flex>
         </Stat>
       </SimpleGrid>

@@ -8,7 +8,6 @@ import {
   Button,
   Image,
   Text,
-  Link,
 } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import { FavouriteButton } from "./FavoriteButton";
@@ -42,12 +41,6 @@ export const ProductCard = ({ product }: ProductCardI) => {
             borderRadius={{ base: "md", md: "xl" }}
           />
         </AspectRatio>
-        <FavouriteButton
-          position="absolute"
-          top="4"
-          right="4"
-          aria-label={`Add ${name} to your favourites`}
-        />
       </Box>
       <Stack>
         <Stack spacing="1">
@@ -69,14 +62,7 @@ export const ProductCard = ({ product }: ProductCardI) => {
       <Stack align="center">
         <Button colorScheme="blue" width="full" onClick={handleProduct}>
           Add to cart
-        </Button>
-        <Link
-          textDecoration="underline"
-          fontWeight="medium"
-          color={useColorModeValue("gray.600", "gray.400")}
-        >
-          Quick shop
-        </Link>
+        </Button> 
       </Stack>
     </Stack>
   );

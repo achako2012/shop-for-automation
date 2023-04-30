@@ -7,6 +7,9 @@ import {
   Link,
   useColorModeValue as mode,
   Button,
+  SimpleGrid,
+  Stat,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
@@ -45,7 +48,12 @@ export const ShoppingCartPage: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => navigate("/products")}>back</Button>
+      <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+            <Button onClick={() => navigate("/products")}>Back to shoping</Button>
+        </SimpleGrid>
+      </Box>
+
       <Box
         maxW={{ base: "3xl", lg: "7xl" }}
         mx="auto"
@@ -59,7 +67,7 @@ export const ShoppingCartPage: React.FC = () => {
         >
           <Stack spacing={{ base: "8", md: "10" }} flex="2">
             <Heading fontSize="2xl" fontWeight="extrabold">
-              Shopping Cart ({products.length})
+              Shopping Cart
             </Heading>
 
             <Stack spacing="6">s{productsInCart}</Stack>
@@ -70,12 +78,6 @@ export const ShoppingCartPage: React.FC = () => {
               priceTotal={totalPrice}
               quantity={products.length}
             />
-            <HStack mt="6" fontWeight="semibold">
-              <p>or</p>
-              <Link color={mode("blue.500", "blue.200")}>
-                Continue shopping
-              </Link>
-            </HStack>
           </Flex>
         </Stack>
       </Box>
