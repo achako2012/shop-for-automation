@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
+import { ProductI } from "types";
 
-interface ProductI {
-  name: string;
-}
 
 interface ProductReducerStateI {
   products: ProductI[];

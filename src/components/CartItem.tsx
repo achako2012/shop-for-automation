@@ -1,11 +1,6 @@
 import {
   Button,
-  CloseButton,
   Flex,
-  Link,
-  Select,
-  SelectProps,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { PriceTag } from "./PriceTag";
 import { CartProductMeta } from "./CartProductMeta";
@@ -42,7 +37,7 @@ export const CartItem = (props: CartItemProps) => {
         justify="space-between"
         display={{ base: "none", md: "flex" }}
       >
-        <PriceTag price={price} />
+        <PriceTag price={price}/>
         <Button
           aria-label={`Delete ${name} from cart`}
           onClick={handleProductDelete}

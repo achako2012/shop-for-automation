@@ -12,8 +12,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-console.log(store.getState())
-
 const app = (
   <Provider store={store}>
     <ChakraProvider>

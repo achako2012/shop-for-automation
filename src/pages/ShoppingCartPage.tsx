@@ -8,28 +8,39 @@ import {
   useColorModeValue as mode,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
-import { CartOrderSummary } from "./CartOrderSummary";
-import { CartItem } from "./CartItem";
-import { ss } from "../product-page/_data";
+import React, { useEffect, useState } from "react";
+
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { useNavigate } from "react-router-dom";
-import { ProductCard } from "pages/product-page/ProductCard";
-import { ProductI } from "pages/product-page/ProductsPage";
+import { CartItem } from "components/CartItem";
+import { CartOrderSummary } from "components/CartOrderSummary";
+import { ProductI } from "types";
 
 export const ShoppingCartPage: React.FC = () => {
   const navigate = useNavigate();
-  const { products } = useSelector((state: RootState) => state.productReducer);
-  console.log(products);
 
+  const { products } = useSelector((state: RootState) => state.productReducer);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const calculatePrice = () => {
+      const sumWithInitial = products.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.price,
+        0
+      );
+
+      setTotalPrice(sumWithInitial);
+    };
+
+    calculatePrice();
+  }, [products]);
 
   const renderProductsInCart = (arr: ProductI[]) => {
-    // console.log(arr)
     return arr.map((item) => <CartItem key={item.id} {...item} />);
   };
 
-  // add spinner here
   const productsInCart = renderProductsInCart(products);
 
   return (
@@ -55,7 +66,10 @@ export const ShoppingCartPage: React.FC = () => {
           </Stack>
 
           <Flex direction="column" align="center" flex="1">
-            <CartOrderSummary />
+            <CartOrderSummary
+              priceTotal={totalPrice}
+              quantity={products.length}
+            />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
               <Link color={mode("blue.500", "blue.200")}>

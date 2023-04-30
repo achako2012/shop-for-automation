@@ -14,16 +14,16 @@ import React, { useCallback } from "react";
 import { FavouriteButton } from "./FavoriteButton";
 import { PriceTag } from "./PriceTag";
 import { Rating } from "./Rating";
-import { ProductI } from "./ProductsPage";
 import { useDispatch } from "react-redux";
+import { ProductI } from "types";
 
-interface FooI {
+interface ProductCardI {
   product: ProductI;
 }
 
-export const ProductCard = ({ product }: FooI) => {
+export const ProductCard = ({ product }: ProductCardI) => {
   const { imageUrl, name, price, rating } = product;
-  
+
   const dispatch = useDispatch();
 
   const handleProduct = useCallback(() => {
@@ -57,7 +57,7 @@ export const ProductCard = ({ product }: FooI) => {
           >
             {name}
           </Text>
-          <PriceTag price={price} currency="USD" />
+          <PriceTag price={price} />
         </Stack>
         <HStack>
           <Rating defaultValue={rating} size="sm" />

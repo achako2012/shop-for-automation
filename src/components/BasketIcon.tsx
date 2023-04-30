@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  chakra,
   Flex,
   SimpleGrid,
   Stat,
@@ -9,14 +8,13 @@ import {
   StatNumber,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { GoLocation } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
-interface StatsCardProps {
+interface BasketIconPropsI {
   count: number;
 }
 
-export default function BasicStatistics(props: StatsCardProps) {
+export default function BasketIcon(props: BasketIconPropsI) {
   const { count } = props;
   const navigate = useNavigate();
   
