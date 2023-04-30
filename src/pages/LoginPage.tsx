@@ -65,8 +65,10 @@ export const LoginPage: React.FC = () => {
       formElements.usernameInput.value === user.username &&
       formElements.passwordInput.value === user.password
     ) {
+      localStorage.setItem("isAuthentificated", "true");
       navigate("/products");
     } else {
+      localStorage.removeItem("isAuthentificated");
       setError(true);
       setCredentiasl({
         username: "",

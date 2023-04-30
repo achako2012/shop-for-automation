@@ -1,9 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import store from "./redux";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Provider } from "react-redux";
+
 import App from "App";
+import createSagaMiddleware from "redux-saga";
+import { createStore, applyMiddleware } from "redux";
+import  { rootReducer } from "store";
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
+console.log(store.getState())
 
 const app = (
   <Provider store={store}>

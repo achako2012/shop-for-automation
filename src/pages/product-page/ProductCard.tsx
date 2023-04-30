@@ -10,11 +10,12 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
-import React, { Props } from "react";
+import React, { useCallback } from "react";
 import { FavouriteButton } from "./FavoriteButton";
 import { PriceTag } from "./PriceTag";
 import { Rating } from "./Rating";
 import { ProductI } from "./ProductsPage";
+import { useDispatch } from "react-redux";
 
 interface FooI {
   product: ProductI;
@@ -22,6 +23,12 @@ interface FooI {
 
 export const ProductCard = ({ product }: FooI) => {
   const { imageUrl, name, price, rating } = product;
+  
+  const dispatch = useDispatch();
+
+  const handleProduct = useCallback(() => {
+    dispatch({ type: "ADD_PRODUCT", product });
+  }, [dispatch]);
 
   return (
     <Stack spacing={{ base: "4", md: "5" }}>
@@ -60,7 +67,7 @@ export const ProductCard = ({ product }: FooI) => {
         </HStack>
       </Stack>
       <Stack align="center">
-        <Button colorScheme="blue" width="full">
+        <Button colorScheme="blue" width="full" onClick={handleProduct}>
           Add to cart
         </Button>
         <Link
