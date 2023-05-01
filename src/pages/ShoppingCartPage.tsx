@@ -3,13 +3,8 @@ import {
   Stack,
   Heading,
   Flex,
-  HStack,
-  Link,
-  useColorModeValue as mode,
   Button,
   SimpleGrid,
-  Stat,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
@@ -30,7 +25,8 @@ export const ShoppingCartPage: React.FC = () => {
   useEffect(() => {
     const calculatePrice = () => {
       const sumWithInitial = products.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.price,
+        (accumulator, currentValue) =>
+          accumulator + parseInt(currentValue.price, 10),
         0
       );
 
@@ -50,7 +46,7 @@ export const ShoppingCartPage: React.FC = () => {
     <>
       <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-            <Button onClick={() => navigate("/products")}>Back to shoping</Button>
+          <Button onClick={() => navigate("/products")}>Back to shoping</Button>
         </SimpleGrid>
       </Box>
 

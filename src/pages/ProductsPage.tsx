@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "store";
@@ -7,7 +7,6 @@ import { ProductI } from "types";
 import BasketIcon from "components/BasketIcon";
 import { ProductCard } from "components/ProductCard";
 import { ProductGrid } from "components/ProductGrid";
-import { productsList } from "_data";
 
 export const ProductPage: React.FC = () => {
   const navigate = useNavigate();
@@ -15,12 +14,23 @@ export const ProductPage: React.FC = () => {
     (state: RootState) => state.productReducer.products
   );
 
+  const [productsList, setProductsList] = useState<ProductI[]>([]);
+
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3001/products");
+      const data = await response.json();
+
+      setProductsList([...data])
+    };
+
+    fetchData();
+
     const isLoaded = localStorage.getItem("isAuthentificated");
 
     if (!isLoaded) navigate("/");
   }, []);
-
+  
   const renderProducts = (arr: ProductI[]) =>
     arr.map((item: ProductI) => <ProductCard key={item.id} product={item} />);
 

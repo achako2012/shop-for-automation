@@ -1,7 +1,13 @@
 export interface ProductI {
-    id: string;
-    name: string;
-    price: number;
-    imageUrl: string;
-    rating: number;
-  }
+  id: number;
+  name: string;
+  price: string;
+  imageUrl: string;
+  rating: string;
+}
+
+export interface UserI {
+  id: number;
+  username: string;
+  password: string;
+}

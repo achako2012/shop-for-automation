@@ -6,7 +6,7 @@ import {
 import { ReactNode } from "react";
 
 interface PriceTagPropsI {
-  price: number;
+  price: string;
 }
 
 export const PriceTag = (props: PriceTagPropsI) => {

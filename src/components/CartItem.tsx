@@ -6,7 +6,7 @@ import { useCallback } from "react";
 
 type CartItemProps = {
   name: string;
-  price: number;
+  price: string;
   imageUrl: string;
   onClickGiftWrapping?: () => void;
 };

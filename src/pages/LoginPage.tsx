@@ -14,27 +14,36 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
-import React, { useState } from "react";
-import { user } from "_data";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserI } from "types";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
-
-interface UserI {
-  username: string;
-  password: string;
-}
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentiasl] = useState<UserI>({
+    id: 0,
     username: "",
     password: "",
   });
   const [error, setError] = useState<boolean>(false);
+
+  const [usersList, setUsersList] = useState<UserI[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3001/users");
+      const data = await response.json();
+
+      setUsersList([...data]);
+    };
+
+    fetchData();
+  }, []);
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -61,16 +70,20 @@ export const LoginPage: React.FC = () => {
       passwordInput: HTMLInputElement;
     };
 
-    if (
-      formElements.usernameInput.value === user.username &&
-      formElements.passwordInput.value === user.password
-    ) {
+    const isUserExist = usersList.find(
+      (el) =>
+        el.username === formElements.usernameInput.value &&
+        el.password === formElements.passwordInput.value
+    );
+
+    if (isUserExist) {
       localStorage.setItem("isAuthentificated", "true");
       navigate("/products");
     } else {
       localStorage.removeItem("isAuthentificated");
       setError(true);
       setCredentiasl({
+        id: 0,
         username: "",
         password: "",
       });

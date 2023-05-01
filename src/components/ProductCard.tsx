@@ -10,7 +10,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useCallback } from "react";
-import { FavouriteButton } from "./FavoriteButton";
 import { PriceTag } from "./PriceTag";
 import { Rating } from "./Rating";
 import { useDispatch } from "react-redux";
@@ -53,7 +52,7 @@ export const ProductCard = ({ product }: ProductCardI) => {
           <PriceTag price={price} />
         </Stack>
         <HStack>
-          <Rating defaultValue={rating} size="sm" />
+          <Rating value={rating} />
           <Text fontSize="sm" color={useColorModeValue("gray.600", "gray.400")}>
             12 Reviews
           </Text>
@@ -62,7 +61,7 @@ export const ProductCard = ({ product }: ProductCardI) => {
       <Stack align="center">
         <Button colorScheme="blue" width="full" onClick={handleProduct}>
           Add to cart
-        </Button> 
+        </Button>
       </Stack>
     </Stack>
   );
